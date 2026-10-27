@@ -16,6 +16,7 @@ and <strong>DeepSeek Harness</strong>, plus any harness that reads <code>SKILL.m
 
 <p>
 <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-22c55e?style=flat-square" alt="MIT license"></a>
+<a href="https://www.npmjs.com/package/agent-working-notes"><img src="https://img.shields.io/npm/v/agent-working-notes?style=flat-square&label=npm&color=cb3837" alt="agent-working-notes on npm"></a>
 <img src="https://img.shields.io/badge/format-SKILL.md-8b5cf6?style=flat-square" alt="Agent Skills SKILL.md format">
 <img src="https://img.shields.io/badge/Claude_Code-skill-d97757?style=flat-square" alt="Claude Code skill">
 <img src="https://img.shields.io/badge/Codex-skill-10a37f?style=flat-square" alt="OpenAI Codex skill">
@@ -101,14 +102,33 @@ Read the full method in [How it works](docs/HOW-IT-WORKS.md).
 
 Requires **Node.js 18+** and **git**. The installer copies `SKILL.md` and its templates into the directories your harness already reads. Nothing is sent anywhere.
 
+### npm
+
+```bash
+npx -y agent-working-notes install
+```
+
+Or install once and use the binary in every shell:
+
+```bash
+npm install -g agent-working-notes
+agent-working-notes install
+```
+
+The npm package mirrors the latest GitHub release and is published from the tagged commit. `working-notes` is an alias for the same binary.
+
+### Straight from GitHub
+
+The GitHub route always serves the current `main`, with no npm publication in between:
+
 ```bash
 npx -y github:FiredMosquito831/working-notes install
 ```
 
-The installer detects the harnesses on your machine and prints exactly where the skill landed. To choose explicitly:
+Both routes detect the harnesses on your machine and print exactly where the skill landed. To choose explicitly:
 
 ```bash
-npx -y github:FiredMosquito831/working-notes install --agent claude-code,codex
+npx -y agent-working-notes install --agent claude-code,codex
 ```
 
 Then open your project and start a session:
@@ -162,32 +182,32 @@ One installer, every harness. Each command below is complete and copy-paste read
 Install for every harness detected on the machine:
 
 ```bash
-npx -y github:FiredMosquito831/working-notes install
+npx -y agent-working-notes install
 ```
 
 ### Terminal and CLI harnesses
 
 | Harness | Install command | Invoke |
 |---|---|---|
-| **Claude Code** | `npx -y github:FiredMosquito831/working-notes install --agent claude-code` | `/working-notes` |
-| **OpenAI Codex** | `npx -y github:FiredMosquito831/working-notes install --agent codex` | `/skills`, or `$` to mention |
-| **OpenCode** | `npx -y github:FiredMosquito831/working-notes install --agent opencode` | native `skill` tool |
-| **Gemini CLI** | `npx -y github:FiredMosquito831/working-notes install --agent gemini` | automatic `activate_skill` |
-| **DeepSeek Harness (`dsh`)** | `npx -y github:FiredMosquito831/working-notes install --agent deepseek` | skills catalog |
-| **Qwen Code** | `npx -y github:FiredMosquito831/working-notes install --agent qwen` | automatic |
-| **Command Code** | `npx -y github:FiredMosquito831/working-notes install --agent commandcode --scope project` | automatic |
-| **Antigravity CLI (`agy`)** | `npx -y github:FiredMosquito831/working-notes install --agent antigravity-cli` | `/working-notes` |
+| **Claude Code** | `npx -y agent-working-notes install --agent claude-code` | `/working-notes` |
+| **OpenAI Codex** | `npx -y agent-working-notes install --agent codex` | `/skills`, or `$` to mention |
+| **OpenCode** | `npx -y agent-working-notes install --agent opencode` | native `skill` tool |
+| **Gemini CLI** | `npx -y agent-working-notes install --agent gemini` | automatic `activate_skill` |
+| **DeepSeek Harness (`dsh`)** | `npx -y agent-working-notes install --agent deepseek` | skills catalog |
+| **Qwen Code** | `npx -y agent-working-notes install --agent qwen` | automatic |
+| **Command Code** | `npx -y agent-working-notes install --agent commandcode --scope project` | automatic |
+| **Antigravity CLI (`agy`)** | `npx -y agent-working-notes install --agent antigravity-cli` | `/working-notes` |
 
 ### Editor and IDE harnesses
 
 | Harness | Install command | Invoke |
 |---|---|---|
-| **Cursor** | `npx -y github:FiredMosquito831/working-notes install --agent cursor` | automatic, or `/` in chat |
-| **GitHub Copilot** | `npx -y github:FiredMosquito831/working-notes install --agent copilot` | `/` menu, `/skills` |
-| **Google Antigravity** | `npx -y github:FiredMosquito831/working-notes install --agent antigravity` | `/working-notes` |
-| **Cline** | `npx -y github:FiredMosquito831/working-notes install --agent cline` | `/` menu |
-| **Kilo Code** | `npx -y github:FiredMosquito831/working-notes install --agent kilo` | `/working-notes` |
-| **Windsurf / Devin Desktop** | `npx -y github:FiredMosquito831/working-notes install --agent windsurf` | automatic in Cascade |
+| **Cursor** | `npx -y agent-working-notes install --agent cursor` | automatic, or `/` in chat |
+| **GitHub Copilot** | `npx -y agent-working-notes install --agent copilot` | `/` menu, `/skills` |
+| **Google Antigravity** | `npx -y agent-working-notes install --agent antigravity` | `/working-notes` |
+| **Cline** | `npx -y agent-working-notes install --agent cline` | `/` menu |
+| **Kilo Code** | `npx -y agent-working-notes install --agent kilo` | `/working-notes` |
+| **Windsurf / Devin Desktop** | `npx -y agent-working-notes install --agent windsurf` | automatic in Cascade |
 
 Every harness reads the open [Agent Skills](https://github.com/anthropics/skills) layout. `working-notes` also writes the managed block into `CLAUDE.md` and `AGENTS.md`, so instruction-file-only modes still receive the ten rules.
 
@@ -195,13 +215,13 @@ Every harness reads the open [Agent Skills](https://github.com/anthropics/skills
 
 ```bash
 # every supported harness, user scope
-npx -y github:FiredMosquito831/working-notes install --agent all
+npx -y agent-working-notes install --agent all
 
 # a project-local copy, committed with the repo
-npx -y github:FiredMosquito831/working-notes install --agent all --scope project
+npx -y agent-working-notes install --agent all --scope project
 
 # anywhere else that reads SKILL.md
-npx -y github:FiredMosquito831/working-notes install --dir ~/.my-agent/skills
+npx -y agent-working-notes install --dir ~/.my-agent/skills
 ```
 
 Codex, OpenCode, DeepSeek Harness and Antigravity's project scope share `.agents/skills`; the installer writes one copy, not one per harness. `working-notes list` shows every resolved path and whether the harness is detected. `working-notes doctor` checks installed copies against the CLI version.
@@ -355,14 +375,14 @@ Yes. The CLI is dependency-free Node, the PowerShell wrapper handles Windows pat
 <details>
 <summary><strong>How do I update it?</strong></summary>
 
-Run the installer again, or `npx -y github:FiredMosquito831/working-notes install --agent all`. `working-notes doctor` reports stale copies. Plugin users run `/plugin update working-notes`.
+Run the installer again, or `npx -y agent-working-notes install --agent all`. `working-notes doctor` reports stale copies. Plugin users run `/plugin update working-notes`.
 
 </details>
 
 <details>
 <summary><strong>How do I remove it?</strong></summary>
 
-`npx -y github:FiredMosquito831/working-notes uninstall --agent all` removes copies this tool installed. Project artifacts (`WORKING-NOTES.md`, `QUEUE.md`, `CLAUDE.md` block) are yours and are never deleted automatically.
+`npx -y agent-working-notes uninstall --agent all` removes copies this tool installed. Project artifacts (`WORKING-NOTES.md`, `QUEUE.md`, `CLAUDE.md` block) are yours and are never deleted automatically.
 
 </details>
 

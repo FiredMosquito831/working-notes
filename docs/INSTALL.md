@@ -16,7 +16,7 @@ git --version
 ## One command
 
 ```bash
-npx -y github:FiredMosquito831/working-notes install
+npx -y agent-working-notes install
 ```
 
 With no options, the installer:
@@ -28,6 +28,21 @@ With no options, the installer:
 5. Prints every destination.
 
 If no harness is detected it stops and asks you to name one. It never invents a directory outside the documented locations.
+
+The npm package is published from the tagged GitHub release. Without npm, the same command runs straight from `main`:
+
+```bash
+npx -y github:FiredMosquito831/working-notes install
+```
+
+To keep a binary on `PATH` instead of downloading through `npx` each time:
+
+```bash
+npm install -g agent-working-notes
+agent-working-notes install
+```
+
+`working-notes` is an alias for the same binary.
 
 ### Platform wrappers
 
@@ -55,25 +70,25 @@ Every command is complete. Add `--scope project` to write into the current repos
 
 | Harness | Install command |
 |---|---|
-| Claude Code | `npx -y github:FiredMosquito831/working-notes install --agent claude-code` |
-| OpenAI Codex | `npx -y github:FiredMosquito831/working-notes install --agent codex` |
-| Cursor | `npx -y github:FiredMosquito831/working-notes install --agent cursor` |
-| GitHub Copilot | `npx -y github:FiredMosquito831/working-notes install --agent copilot` |
-| Gemini CLI | `npx -y github:FiredMosquito831/working-notes install --agent gemini` |
-| OpenCode | `npx -y github:FiredMosquito831/working-notes install --agent opencode` |
-| Google Antigravity | `npx -y github:FiredMosquito831/working-notes install --agent antigravity` |
-| Antigravity CLI (`agy`) | `npx -y github:FiredMosquito831/working-notes install --agent antigravity-cli` |
-| Cline | `npx -y github:FiredMosquito831/working-notes install --agent cline` |
-| Qwen Code | `npx -y github:FiredMosquito831/working-notes install --agent qwen` |
-| Kilo Code | `npx -y github:FiredMosquito831/working-notes install --agent kilo` |
-| Windsurf / Devin Desktop | `npx -y github:FiredMosquito831/working-notes install --agent windsurf` |
-| DeepSeek Harness (`dsh`) | `npx -y github:FiredMosquito831/working-notes install --agent deepseek` |
-| Command Code | `npx -y github:FiredMosquito831/working-notes install --agent commandcode --scope project` |
+| Claude Code | `npx -y agent-working-notes install --agent claude-code` |
+| OpenAI Codex | `npx -y agent-working-notes install --agent codex` |
+| Cursor | `npx -y agent-working-notes install --agent cursor` |
+| GitHub Copilot | `npx -y agent-working-notes install --agent copilot` |
+| Gemini CLI | `npx -y agent-working-notes install --agent gemini` |
+| OpenCode | `npx -y agent-working-notes install --agent opencode` |
+| Google Antigravity | `npx -y agent-working-notes install --agent antigravity` |
+| Antigravity CLI (`agy`) | `npx -y agent-working-notes install --agent antigravity-cli` |
+| Cline | `npx -y agent-working-notes install --agent cline` |
+| Qwen Code | `npx -y agent-working-notes install --agent qwen` |
+| Kilo Code | `npx -y agent-working-notes install --agent kilo` |
+| Windsurf / Devin Desktop | `npx -y agent-working-notes install --agent windsurf` |
+| DeepSeek Harness (`dsh`) | `npx -y agent-working-notes install --agent deepseek` |
+| Command Code | `npx -y agent-working-notes install --agent commandcode --scope project` |
 
 ## Claude Code
 
 ```bash
-npx -y github:FiredMosquito831/working-notes install --agent claude-code
+npx -y agent-working-notes install --agent claude-code
 ```
 
 | Scope | Destination | How it appears |
@@ -93,7 +108,7 @@ The plugin is namespaced as `/working-notes:working-notes`; the bare `/working-n
 ## OpenAI Codex
 
 ```bash
-npx -y github:FiredMosquito831/working-notes install --agent codex
+npx -y agent-working-notes install --agent codex
 ```
 
 | Scope | Destination |
@@ -106,7 +121,7 @@ Codex scans `.agents/skills` from the current directory up to the repository roo
 ## Cursor
 
 ```bash
-npx -y github:FiredMosquito831/working-notes install --agent cursor
+npx -y agent-working-notes install --agent cursor
 ```
 
 | Scope | Destination |
@@ -119,7 +134,7 @@ Cursor also reads `~/.agents/skills/`, `.agents/skills/`, and the Claude/Codex c
 ## GitHub Copilot
 
 ```bash
-npx -y github:FiredMosquito831/working-notes install --agent copilot
+npx -y agent-working-notes install --agent copilot
 ```
 
 | Scope | Destination |
@@ -132,7 +147,7 @@ Copilot also reads `~/.claude/skills/`, `~/.agents/skills/`, `.claude/skills/` a
 ## Gemini CLI
 
 ```bash
-npx -y github:FiredMosquito831/working-notes install --agent gemini
+npx -y agent-working-notes install --agent gemini
 ```
 
 | Scope | Destination |
@@ -145,7 +160,7 @@ The `~/.agents/skills/` and `.agents/skills/` aliases also work and outrank the 
 ## OpenCode
 
 ```bash
-npx -y github:FiredMosquito831/working-notes install --agent opencode
+npx -y agent-working-notes install --agent opencode
 ```
 
 | Scope | Destination |
@@ -158,7 +173,7 @@ OpenCode also reads `~/.config/opencode/skills/`, `~/.claude/skills/`, `.opencod
 ## DeepSeek Harness (`dsh`)
 
 ```bash
-npx -y github:FiredMosquito831/working-notes install --agent deepseek
+npx -y agent-working-notes install --agent deepseek
 ```
 
 | Scope | Destination |
@@ -171,7 +186,7 @@ npx -y github:FiredMosquito831/working-notes install --agent deepseek
 ## Qwen Code
 
 ```bash
-npx -y github:FiredMosquito831/working-notes install --agent qwen
+npx -y agent-working-notes install --agent qwen
 ```
 
 | Scope | Destination |
@@ -184,7 +199,7 @@ Qwen Code also reads `~/.agents/skills/` and `.agents/skills/`; a skill in `.qwe
 ## Command Code
 
 ```bash
-npx -y github:FiredMosquito831/working-notes install --agent commandcode --scope project
+npx -y agent-working-notes install --agent commandcode --scope project
 ```
 
 | Scope | Destination |
@@ -196,8 +211,8 @@ Command Code documents project-level skills only. A user-scope install is skippe
 ## Google Antigravity
 
 ```bash
-npx -y github:FiredMosquito831/working-notes install --agent antigravity
-npx -y github:FiredMosquito831/working-notes install --agent antigravity-cli
+npx -y agent-working-notes install --agent antigravity
+npx -y agent-working-notes install --agent antigravity-cli
 ```
 
 | Target | User destination | Project destination |
@@ -210,7 +225,7 @@ The IDE also reads `~/.gemini/antigravity/skills/` (legacy) and `.agent/skills/`
 ## Cline
 
 ```bash
-npx -y github:FiredMosquito831/working-notes install --agent cline
+npx -y agent-working-notes install --agent cline
 ```
 
 | Scope | Destination |
@@ -223,7 +238,7 @@ Cline also reads `.clinerules/skills/` and `.claude/skills/`. The skill name mus
 ## Kilo Code
 
 ```bash
-npx -y github:FiredMosquito831/working-notes install --agent kilo
+npx -y agent-working-notes install --agent kilo
 ```
 
 | Scope | Destination |
@@ -236,7 +251,7 @@ Run `/reload` in a session to pick up a new skill without restarting. Invoke as 
 ## Windsurf / Devin Desktop
 
 ```bash
-npx -y github:FiredMosquito831/working-notes install --agent windsurf
+npx -y agent-working-notes install --agent windsurf
 ```
 
 | Scope | Destination |
@@ -247,8 +262,8 @@ npx -y github:FiredMosquito831/working-notes install --agent windsurf
 The current Devin Desktop documentation uses `.devin/skills/` and `~/.config/devin/skills/`; the legacy `.windsurf` paths are still read. If your build uses only the new layout:
 
 ```bash
-npx -y github:FiredMosquito831/working-notes install --agent windsurf --dir ~/.config/devin/skills
-npx -y github:FiredMosquito831/working-notes install --agent windsurf --dir .devin/skills --scope project
+npx -y agent-working-notes install --agent windsurf --dir ~/.config/devin/skills
+npx -y agent-working-notes install --agent windsurf --dir .devin/skills --scope project
 ```
 
 Skills load automatically in Cascade.
@@ -256,7 +271,7 @@ Skills load automatically in Cascade.
 ## Any other harness
 
 ```bash
-npx -y github:FiredMosquito831/working-notes install --dir ~/.my-agent/skills
+npx -y agent-working-notes install --dir ~/.my-agent/skills
 ```
 
 The skill is self-contained. Point `--dir` at whatever directory your harness scans for `SKILL.md` folders. Repeat `--dir` or pass a comma-separated list.
@@ -286,8 +301,8 @@ Project copies can be committed. That is useful for teams that want the same rul
 ## Verify the install
 
 ```bash
-npx -y github:FiredMosquito831/working-notes list
-npx -y github:FiredMosquito831/working-notes doctor
+npx -y agent-working-notes list
+npx -y agent-working-notes doctor
 ```
 
 `list` shows every supported harness, its resolved paths, and whether it was detected. `doctor` checks each installed copy against the CLI version.
@@ -303,7 +318,7 @@ If the slash command is not offered, ask the agent to read `SKILL.md` from the p
 ## Update
 
 ```bash
-npx -y github:FiredMosquito831/working-notes install --agent all
+npx -y agent-working-notes install --agent all
 ```
 
 The installer refreshes copies it owns, keeps project artifacts untouched, and reports `up-to-date` when nothing changed. Plugin users run `/plugin update working-notes`.
@@ -311,7 +326,7 @@ The installer refreshes copies it owns, keeps project artifacts untouched, and r
 ## Uninstall
 
 ```bash
-npx -y github:FiredMosquito831/working-notes uninstall --agent all
+npx -y agent-working-notes uninstall --agent all
 ```
 
 This removes only directories carrying `.working-notes.json` (the installer's manifest). A directory without it is refused unless you pass `--force`.

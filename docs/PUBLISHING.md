@@ -109,20 +109,91 @@ Then upload the social preview in the web UI.
 
 ## npm
 
-The installer runs from GitHub without npm:
+| | |
+|---|---|
+| Package | `agent-working-notes` |
+| Binaries | `agent-working-notes`, `working-notes` |
+| Registry page | https://www.npmjs.com/package/agent-working-notes |
+| Publish workflow | `.github/workflows/publish.yml` |
+
+The npm tarball contains the skill, templates, installer, plugin manifests, README and licence. It does not contain the tests, docs or assets.
+
+### First publish (manual, once)
 
 ```bash
-npx -y github:FiredMosquito831/working-notes install
+npm login
+npm publish --access public
 ```
 
-Publishing to npm is optional and only needed for a shorter command. Check the name first:
+`prepublishOnly` runs `npm test` and `npm run validate` before anything leaves the machine. Verify:
 
 ```bash
-npm view working-notes-skill version
-npm publish
+npm view agent-working-notes version
+npx -y agent-working-notes --version
 ```
 
-After publishing, `npx working-notes-skill install` becomes available. Update the README in the same release; keep the GitHub route documented, because it always serves the current `main`.
+### Automatic publishing after the first publish
+
+`.github/workflows/publish.yml` runs on three events:
+
+1. **A GitHub release is published.** The workflow checks that the tag (`vX.Y.Z`) equals `package.json`, runs the tests and validation, and publishes if that version is not already on npm.
+2. **A push to `main` changes `package.json`.** This is the version-bump path: if the new version is not on npm, it publishes. If it is, it reports and stops.
+3. **Manual dispatch.** Same checks, useful after fixing a failed run.
+
+A concurrency group prevents two publishes racing. Provenance is attached to every publish, so the npm page links the package to the exact GitHub commit and workflow run.
+
+### Configure npm credentials (choose one)
+
+**Trusted publishing (recommended, no long-lived secret)**
+
+1. Open the package on npmjs.com → **Settings** → **Trusted Publishing**.
+2. Add a GitHub Actions publisher:
+   - Organization or user: `FiredMosquito831`
+   - Repository: `working-notes`
+   - Workflow filename: `publish.yml`
+3. Enable the workflow path:
+
+   ```bash
+   gh variable set NPM_TRUSTED_PUBLISHING --body true
+   ```
+
+**Token**
+
+```bash
+gh secret set NPM_TOKEN
+```
+
+Use a granular access token with publish rights for this package.
+
+Until one of these is configured, the workflow skips with a notice and a step summary instead of failing. A release does not silently break CI while you set it up.
+
+### Release flow
+
+1. Bump `version` in `package.json`, `.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json`.
+2. Add the `CHANGELOG.md` entry.
+3. Commit and push to `main`. The workflow publishes the new version.
+4. Optionally tag and create a GitHub release:
+
+   ```bash
+   git tag v1.2.0
+   git push origin v1.2.0
+   gh release create v1.2.0 --title "v1.2.0" --generate-notes
+   ```
+
+   The release run sees the version already on npm and stops. This is expected.
+
+5. Verify:
+
+   ```bash
+   npm view agent-working-notes@1.2.0 version
+   npm view agent-working-notes@1.2.0 dist.integrity
+   ```
+
+If the version in the three manifests disagree, validation fails and nothing publishes. That is deliberate: the npm package and the Claude plugin must carry the same version.
+
+### What the npm README shows
+
+npm renders `README.md` on the package page. Relative links to `docs/` point at the GitHub repository in context, but npm cannot serve those files; the GitHub README remains the canonical documentation. Keep the install commands and the GitHub repository link at the top.
 
 ## Claude Code plugin directory
 

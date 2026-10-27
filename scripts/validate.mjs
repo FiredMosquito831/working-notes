@@ -68,12 +68,16 @@ check('package and plugin manifests agree', () => {
   const pkg = json('package.json');
   const plugin = json('.claude-plugin/plugin.json');
   const market = json('.claude-plugin/marketplace.json');
-  assert(pkg.name === 'working-notes-skill', 'package name changed; update docs and tests');
+  assert(pkg.name === 'agent-working-notes', 'package name changed; update docs, workflow and tests');
+  assert(pkg.bin && pkg.bin['working-notes'], 'the working-notes binary must stay available');
+  assert(pkg.bin['agent-working-notes'], 'the package name must also resolve as a binary');
+  assert(pkg.publishConfig?.access === 'public', 'an unscoped package must publish with public access');
   assert(plugin.name === 'working-notes', 'plugin name must match the skill name');
   assert(plugin.version === pkg.version, 'plugin version must match package version');
   assert(Array.isArray(market.plugins) && market.plugins.length > 0, 'marketplace must list a plugin');
   const entry = market.plugins.find((p) => p.name === 'working-notes');
   assert(entry, 'marketplace must list working-notes');
+  assert(entry.version === pkg.version, 'marketplace version must match the npm package version');
   assert(entry.source === './' || entry.source === '.', 'the plugin lives at the repository root');
   assert(market.name !== 'claude-plugins-official', 'marketplace name is reserved');
 });
@@ -88,6 +92,14 @@ check('README covers every supported harness', () => {
     assert(readme.includes(key) || installDoc.includes(key), `no install documentation for ${key}`);
   }
   assert(readme.includes('npx -y github:FiredMosquito831/working-notes'), 'README must show the one-line installer');
+});
+
+check('the publish workflow exists and is wired to npm', () => {
+  const workflow = read('.github/workflows/publish.yml');
+  assert(/npm publish/.test(workflow), 'publish.yml must run npm publish');
+  assert(/id-token:\s*write/.test(workflow), 'publish.yml needs id-token: write for provenance');
+  assert(/release:/.test(workflow), 'publish.yml must react to releases');
+  assert(/push:/.test(workflow), 'publish.yml must react to version bumps on main');
 });
 
 check('the CLI answers', () => {

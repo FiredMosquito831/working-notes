@@ -1,6 +1,6 @@
 {
-  "name": "working-notes-skill",
-  "version": "1.1.0",
+  "name": "agent-working-notes",
+  "version": "1.2.0",
   "description": "A portable Agent Skill that gives any AI coding harness an operating manual: investigation, specs, decisions, one implementer, a binding PR queue, handoffs and self-verification.",
   "keywords": [
     "agent-skills",
@@ -40,7 +40,8 @@
   },
   "type": "module",
   "bin": {
-    "working-notes": "cli/working-notes.mjs"
+    "working-notes": "cli/working-notes.mjs",
+    "agent-working-notes": "cli/working-notes.mjs"
   },
   "files": [
     "SKILL.md",
@@ -55,9 +56,13 @@
   "engines": {
     "node": ">=18"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "install-skill": "node cli/working-notes.mjs install",
     "validate": "node scripts/validate.mjs",
-    "test": "node scripts/test.mjs"
+    "test": "node scripts/test.mjs",
+    "prepublishOnly": "npm test && npm run validate"
   }
 }

@@ -1,0 +1,94 @@
+name: publish
+
+on:
+  release:
+    types: [published]
+  push:
+    branches: [main]
+    paths:
+      - package.json
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: npm-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Publish to npm
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+
+      - name: Read the package version
+        id: version
+        run: echo "value=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+
+      - name: A release tag must match the package version
+        if: github.event_name == 'release'
+        run: |
+          tag='${{ github.event.release.tag_name }}'
+          tag="${tag#v}"
+          if [ "$tag" != "${{ steps.version.outputs.value }}" ]; then
+            echo "::error::Release tag '$tag' does not match package.json '${{ steps.version.outputs.value }}'"
+            exit 1
+          fi
+
+      - name: Is this version already on npm?
+        id: check
+        run: |
+          if npm view "agent-working-notes@${{ steps.version.outputs.value }}" version >/dev/null 2>&1; then
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+            echo "agent-working-notes@${{ steps.version.outputs.value }} is already published."
+          else
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+            echo "agent-working-notes@${{ steps.version.outputs.value }} is new."
+          fi
+
+      - name: Test
+        if: steps.check.outputs.publish == 'true'
+        run: npm test
+
+      - name: Validate the repository
+        if: steps.check.outputs.publish == 'true'
+        run: npm run validate
+
+      - name: Check npm credentials
+        id: auth
+        if: steps.check.outputs.publish == 'true'
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          TRUSTED: ${{ vars.NPM_TRUSTED_PUBLISHING }}
+        run: |
+          if [ -n "$NPM_TOKEN" ] || [ "$TRUSTED" = "true" ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::npm publishing is not configured; skipping. See docs/PUBLISHING.md."
+            {
+              echo "### npm publish skipped"
+              echo
+              echo "No \`NPM_TOKEN\` secret, and \`NPM_TRUSTED_PUBLISHING\` is not \`true\`."
+              echo
+              echo "Add either one to publish every future version automatically. See [docs/PUBLISHING.md](../blob/main/docs/PUBLISHING.md)."
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Publish with provenance
+        if: steps.check.outputs.publish == 'true' && steps.auth.outputs.ready == 'true'
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Verify the published version
+        if: steps.check.outputs.publish == 'true' && steps.auth.outputs.ready == 'true'
+        run: npm view "agent-working-notes@${{ steps.version.outputs.value }}" version

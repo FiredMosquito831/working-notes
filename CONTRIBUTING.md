@@ -89,7 +89,7 @@ Tested with agy 1.0.12; vendor docs linked in HARNESSES.md.
 
 ## Releases
 
-The maintainer releases from `main`. The version lives in `package.json`, `.claude-plugin/plugin.json` and the marketplace entry, and is bumped only at release time. The full checklist is in [docs/PUBLISHING.md](docs/PUBLISHING.md).
+The maintainer releases from `main`. The version lives in `package.json`, `.claude-plugin/plugin.json` and the marketplace entry; all three must agree or validation fails. A push to `main` that changes the version publishes `agent-working-notes` to npm automatically through `.github/workflows/publish.yml`, provided npm credentials are configured. The full checklist is in [docs/PUBLISHING.md](docs/PUBLISHING.md).
 
 ## Reporting a harness change
 

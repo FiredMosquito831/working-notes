@@ -2,6 +2,21 @@
 
 All notable changes to this project are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project uses [Semantic Versioning](https://semver.org/).
 
+## [1.2.0] - 2026-10-28
+
+### Added
+
+- npm package **`agent-working-notes`**, with `agent-working-notes` and `working-notes` binaries.
+- `npx -y agent-working-notes install` and global install (`npm install -g agent-working-notes`) as first-class install routes. The GitHub route remains as the always-current fallback.
+- `.github/workflows/publish.yml`: publishes on a published GitHub release, on a version bump pushed to `main`, and on manual dispatch. Verifies tag against `package.json`, skips versions already on npm, attaches provenance, and supports npm trusted publishing or an `NPM_TOKEN` secret.
+- `prepublishOnly` gate: tests and repository validation run before any manual publish.
+- Publishing documentation for trusted publishing, token setup, the release flow and verification.
+
+### Changed
+
+- Package renamed from `working-notes-skill` to `agent-working-notes`.
+- Validation now enforces that the npm, Claude plugin and marketplace versions agree, and that the publish workflow stays wired to npm.
+
 ## [1.1.0] - 2026-10-28
 
 ### Added
@@ -32,5 +47,6 @@ All notable changes to this project are documented here. The format follows [Kee
 - Installer test suite, repository validator and cross-platform CI.
 - Documentation: install, method, harness matrix, FAQ, contributing.
 
+[1.2.0]: https://github.com/FiredMosquito831/working-notes/releases/tag/v1.2.0
 [1.1.0]: https://github.com/FiredMosquito831/working-notes/releases/tag/v1.1.0
 [1.0.0]: https://github.com/FiredMosquito831/working-notes/releases/tag/v1.0.0

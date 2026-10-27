@@ -80,7 +80,7 @@ Re-run the installer for skill copies, and re-run `/working-notes init` to refre
 
 ### How do I uninstall?
 
-`npx -y github:FiredMosquito831/working-notes uninstall --agent all` removes managed skill copies. Project artifacts remain; delete them yourself if you want them gone. Remove the managed block by deleting the text between its markers.
+`npx -y agent-working-notes uninstall --agent all` removes managed skill copies. Project artifacts remain; delete them yourself if you want them gone. Remove the managed block by deleting the text between its markers.
 
 ## Method
 
