@@ -1,0 +1,19 @@
+# Dependencies (the installer has none, but local tooling may add some)
+node_modules/
+
+# Browser artifacts from local testing
+.playwright-mcp/
+
+# Local scratch copies
+.tmp-test/
+tmp/
+*.log
+
+# Unpublished design notes
+docs/internal/
+
+# Editor and OS noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

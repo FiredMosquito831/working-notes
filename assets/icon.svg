@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-label="working-notes icon">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a1020"/>
+      <stop offset="0.55" stop-color="#0d1730"/>
+      <stop offset="1" stop-color="#141f42"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2dd4bf"/>
+      <stop offset="0.55" stop-color="#60a5fa"/>
+      <stop offset="1" stop-color="#a78bfa"/>
+    </linearGradient>
+    <linearGradient id="check" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#34d399"/>
+      <stop offset="1" stop-color="#0ea5e9"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#2dd4bf" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#2dd4bf" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#8b5cf6" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#8b5cf6" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%">
+      <feDropShadow dx="0" dy="30" stdDeviation="40" flood-color="#000000" flood-opacity="0.55"/>
+    </filter>
+  </defs>
+
+  <rect width="1024" height="1024" rx="224" fill="url(#bg)"/>
+  <circle cx="180" cy="860" r="330" fill="url(#glow)"/>
+  <circle cx="880" cy="150" r="300" fill="url(#glow2)"/>
+  <rect x="10" y="10" width="1004" height="1004" rx="216" fill="none" stroke="#ffffff" stroke-opacity="0.07" stroke-width="2"/>
+
+  <!-- document -->
+  <g filter="url(#shadow)">
+    <rect x="238" y="196" width="548" height="640" rx="64" fill="#0b1428" stroke="#334155" stroke-width="3"/>
+    <rect x="238" y="196" width="548" height="120" rx="64" fill="#111d38"/>
+    <rect x="238" y="252" width="548" height="64" fill="#111d38"/>
+    <rect x="238" y="252" width="548" height="6" fill="url(#accent)" opacity="0.85"/>
+
+    <circle cx="298" cy="256" r="12" fill="#f87171" fill-opacity="0.9"/>
+    <circle cx="340" cy="256" r="12" fill="#fbbf24" fill-opacity="0.9"/>
+    <circle cx="382" cy="256" r="12" fill="#34d399" fill-opacity="0.9"/>
+
+    <g>
+      <rect x="304" y="392" width="54" height="48" rx="14" fill="#a78bfa"/>
+      <rect x="386" y="404" width="300" height="26" rx="13" fill="#e2e8f0" fill-opacity="0.9"/>
+      <rect x="386" y="442" width="220" height="18" rx="9" fill="#64748b" fill-opacity="0.65"/>
+    </g>
+    <g>
+      <rect x="304" y="512" width="54" height="48" rx="14" fill="#2dd4bf"/>
+      <rect x="386" y="524" width="332" height="26" rx="13" fill="#e2e8f0" fill-opacity="0.9"/>
+      <rect x="386" y="562" width="250" height="18" rx="9" fill="#64748b" fill-opacity="0.65"/>
+    </g>
+    <g>
+      <rect x="304" y="632" width="54" height="48" rx="14" fill="#fbbf24"/>
+      <rect x="386" y="644" width="260" height="26" rx="13" fill="#e2e8f0" fill-opacity="0.9"/>
+      <rect x="386" y="682" width="190" height="18" rx="9" fill="#64748b" fill-opacity="0.65"/>
+    </g>
+  </g>
+
+  <!-- verified badge -->
+  <g filter="url(#shadow)">
+    <circle cx="760" cy="758" r="146" fill="#08101f"/>
+    <circle cx="760" cy="758" r="128" fill="url(#check)"/>
+    <path d="M694 760 L740 806 L830 708" fill="none" stroke="#04121f" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

@@ -1,0 +1,32 @@
+name: Harness support request
+description: Add or correct a harness skills directory.
+title: "[harness] "
+labels: ["harness"]
+body:
+  - type: input
+    id: harness
+    attributes:
+      label: Harness
+      placeholder: "Cursor, Copilot CLI, Gemini CLI, ..."
+    validations:
+      required: true
+  - type: input
+    id: docs
+    attributes:
+      label: Documentation URL
+      description: The vendor page that states the skills directory.
+    validations:
+      required: true
+  - type: input
+    id: paths
+    attributes:
+      label: Paths
+      description: User scope and project scope, as documented.
+      placeholder: "~/.example/skills, .example/skills"
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Version tested, the command that confirmed the path, and a screenshot or output.

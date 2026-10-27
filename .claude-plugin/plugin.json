@@ -1,0 +1,25 @@
+{
+  "name": "working-notes",
+  "displayName": "working-notes",
+  "version": "1.0.0",
+  "description": "The operating manual for an AI-orchestrated repo: discuss first, investigate, spec, decide, one implementer, verify everything, and keep a binding queue, handoffs and lessons.",
+  "author": {
+    "name": "FiredMosquito831",
+    "url": "https://github.com/FiredMosquito831"
+  },
+  "homepage": "https://github.com/FiredMosquito831/working-notes#readme",
+  "repository": "https://github.com/FiredMosquito831/working-notes",
+  "license": "MIT",
+  "icon": "./assets/icon.png",
+  "keywords": [
+    "agent-skills",
+    "orchestration",
+    "spec-driven-development",
+    "multi-agent",
+    "claude-code",
+    "codex",
+    "opencode",
+    "antigravity",
+    "deepseek-harness"
+  ]
+}

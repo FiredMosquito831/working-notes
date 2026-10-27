@@ -1,0 +1,57 @@
+{
+  "name": "working-notes-skill",
+  "version": "1.0.0",
+  "description": "A portable Agent Skill that gives any AI coding harness an operating manual: investigation, specs, decisions, one implementer, a binding PR queue, handoffs and self-verification.",
+  "keywords": [
+    "agent-skills",
+    "ai-agents",
+    "claude-code",
+    "claude-code-skill",
+    "codex",
+    "opencode",
+    "antigravity",
+    "command-code",
+    "deepseek-harness",
+    "orchestration",
+    "spec-driven-development",
+    "multi-agent",
+    "context-engineering",
+    "pr-queue",
+    "handoff"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "FiredMosquito831",
+    "url": "https://github.com/FiredMosquito831"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FiredMosquito831/working-notes.git"
+  },
+  "homepage": "https://github.com/FiredMosquito831/working-notes#readme",
+  "bugs": {
+    "url": "https://github.com/FiredMosquito831/working-notes/issues"
+  },
+  "type": "module",
+  "bin": {
+    "working-notes": "cli/working-notes.mjs"
+  },
+  "files": [
+    "SKILL.md",
+    "templates/",
+    "cli/",
+    "install.sh",
+    "install.ps1",
+    "README.md",
+    "LICENSE",
+    ".claude-plugin/"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "install-skill": "node cli/working-notes.mjs install",
+    "validate": "node scripts/validate.mjs",
+    "test": "node --test tests/*.test.mjs"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "firedmosquito",
+  "description": "Skills for running AI coding agents like a disciplined engineering team.",
+  "owner": {
+    "name": "FiredMosquito831",
+    "url": "https://github.com/FiredMosquito831"
+  },
+  "plugins": [
+    {
+      "name": "working-notes",
+      "source": "./",
+      "description": "Initialize a project's orchestration setup: WORKING-NOTES.md, QUEUE.md, handoffs, specs, and a managed How-we-work block in CLAUDE.md and AGENTS.md.",
+      "version": "1.0.0",
+      "license": "MIT",
+      "keywords": [
+        "agent-skills",
+        "orchestration",
+        "spec-driven-development",
+        "multi-agent"
+      ]
+    }
+  ]
+}
