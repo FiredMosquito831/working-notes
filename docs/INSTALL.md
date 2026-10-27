@@ -4,11 +4,9 @@
 
 ## Requirements
 
-- **Node.js 18 or newer** (for the installer and the `npx` route)
-- **git** (for `npx github:` and manual clones)
-- Any supported harness, or any harness that reads the open Agent Skills format
-
-Check what you have:
+- **Node.js 18 or newer** for the installer and the `npx` route
+- **git** for `npx github:` and manual clones
+- One supported harness, or any harness that reads the open Agent Skills format
 
 ```bash
 node --version
@@ -26,10 +24,10 @@ With no options, the installer:
 1. Detects every supported harness on the machine (binary on `PATH` or config directory present).
 2. Resolves each harness to its documented skills directory.
 3. Copies `SKILL.md`, `templates/` and `LICENSE` into `<skills dir>/working-notes/`.
-4. Writes `.working-notes.json` (version and source) so updates and removal are safe.
-5. Prints each destination.
+4. Writes `.working-notes.json` with the version and source, so updates and removal are safe.
+5. Prints every destination.
 
-If no harness is detected, it stops and asks you to name one. It never guesses a directory into existence outside the documented locations.
+If no harness is detected it stops and asks you to name one. It never invents a directory outside the documented locations.
 
 ### Platform wrappers
 
@@ -53,12 +51,29 @@ curl -fsSL https://raw.githubusercontent.com/FiredMosquito831/working-notes/main
 
 ## Choose your harness
 
-Replace `...` with `npx -y github:FiredMosquito831/working-notes`.
+Every command is complete. Add `--scope project` to write into the current repository instead of your home directory.
 
-### Claude Code
+| Harness | Install command |
+|---|---|
+| Claude Code | `npx -y github:FiredMosquito831/working-notes install --agent claude-code` |
+| OpenAI Codex | `npx -y github:FiredMosquito831/working-notes install --agent codex` |
+| Cursor | `npx -y github:FiredMosquito831/working-notes install --agent cursor` |
+| GitHub Copilot | `npx -y github:FiredMosquito831/working-notes install --agent copilot` |
+| Gemini CLI | `npx -y github:FiredMosquito831/working-notes install --agent gemini` |
+| OpenCode | `npx -y github:FiredMosquito831/working-notes install --agent opencode` |
+| Google Antigravity | `npx -y github:FiredMosquito831/working-notes install --agent antigravity` |
+| Antigravity CLI (`agy`) | `npx -y github:FiredMosquito831/working-notes install --agent antigravity-cli` |
+| Cline | `npx -y github:FiredMosquito831/working-notes install --agent cline` |
+| Qwen Code | `npx -y github:FiredMosquito831/working-notes install --agent qwen` |
+| Kilo Code | `npx -y github:FiredMosquito831/working-notes install --agent kilo` |
+| Windsurf / Devin Desktop | `npx -y github:FiredMosquito831/working-notes install --agent windsurf` |
+| DeepSeek Harness (`dsh`) | `npx -y github:FiredMosquito831/working-notes install --agent deepseek` |
+| Command Code | `npx -y github:FiredMosquito831/working-notes install --agent commandcode --scope project` |
+
+## Claude Code
 
 ```bash
-... install --agent claude-code
+npx -y github:FiredMosquito831/working-notes install --agent claude-code
 ```
 
 | Scope | Destination | How it appears |
@@ -73,10 +88,12 @@ Plugin route:
 /plugin install working-notes@firedmosquito
 ```
 
-### OpenAI Codex
+The plugin is namespaced as `/working-notes:working-notes`; the bare `/working-notes` also invokes it. Update with `/plugin update working-notes`.
+
+## OpenAI Codex
 
 ```bash
-... install --agent codex
+npx -y github:FiredMosquito831/working-notes install --agent codex
 ```
 
 | Scope | Destination |
@@ -86,10 +103,49 @@ Plugin route:
 
 Codex scans `.agents/skills` from the current directory up to the repository root. Invoke with `/skills`, or type `$` and mention the skill. Codex also reads the managed block that `init` writes into `AGENTS.md`.
 
-### OpenCode
+## Cursor
 
 ```bash
-... install --agent opencode
+npx -y github:FiredMosquito831/working-notes install --agent cursor
+```
+
+| Scope | Destination |
+|---|---|
+| User | `~/.cursor/skills/working-notes/` |
+| Project | `<repo>/.cursor/skills/working-notes/` |
+
+Cursor also reads `~/.agents/skills/`, `.agents/skills/`, and the Claude/Codex compatibility paths (`.claude/skills/`, `.codex/skills/`). The skill name must match its folder, which it does. Restart Cursor or open a new agent session, then invoke automatically or type `/` in chat.
+
+## GitHub Copilot
+
+```bash
+npx -y github:FiredMosquito831/working-notes install --agent copilot
+```
+
+| Scope | Destination |
+|---|---|
+| User | `~/.copilot/skills/working-notes/` |
+| Project | `<repo>/.github/skills/working-notes/` |
+
+Copilot also reads `~/.claude/skills/`, `~/.agents/skills/`, `.claude/skills/` and `.agents/skills/`. Invoke from the `/` menu in chat, or open the skill list with `/skills`. The CLI and app use the same personal and project locations; editor-only settings do not carry over.
+
+## Gemini CLI
+
+```bash
+npx -y github:FiredMosquito831/working-notes install --agent gemini
+```
+
+| Scope | Destination |
+|---|---|
+| User | `~/.gemini/skills/working-notes/` |
+| Project | `<repo>/.gemini/skills/working-notes/` |
+
+The `~/.agents/skills/` and `.agents/skills/` aliases also work and outrank the `.gemini` path at the same tier. Invocation is automatic through `activate_skill`; Gemini shows a consent prompt the first time, then loads the skill into the session.
+
+## OpenCode
+
+```bash
+npx -y github:FiredMosquito831/working-notes install --agent opencode
 ```
 
 | Scope | Destination |
@@ -97,13 +153,51 @@ Codex scans `.agents/skills` from the current directory up to the repository roo
 | User | `~/.agents/skills/working-notes/` |
 | Project | `<repo>/.agents/skills/working-notes/` |
 
-OpenCode loads skills through its native `skill` tool. It also reads `~/.claude/skills` and `~/.config/opencode/skills`; this installer uses the shared `.agents` path so Codex, OpenCode and DeepSeek Harness can share one copy.
+OpenCode also reads `~/.config/opencode/skills/`, `~/.claude/skills/`, `.opencode/skills/` and `.claude/skills/`. It loads the skill through its native `skill` tool. This installer uses the shared `.agents` path so Codex, OpenCode and DeepSeek Harness can share one copy.
 
-### Google Antigravity
+## DeepSeek Harness (`dsh`)
 
 ```bash
-... install --agent antigravity          # IDE and app
-... install --agent antigravity-cli      # agy
+npx -y github:FiredMosquito831/working-notes install --agent deepseek
+```
+
+| Scope | Destination |
+|---|---|
+| User | `~/.agents/skills/working-notes/` |
+| Project | `<repo>/.agents/skills/working-notes/` |
+
+`dsh` also discovers `~/.dsh/skills/` and `.dsh/skills/`, and reads `AGENTS.md` and `CLAUDE.md`. The skill appears in its skills catalog; the rules block applies even when the skill is not invoked.
+
+## Qwen Code
+
+```bash
+npx -y github:FiredMosquito831/working-notes install --agent qwen
+```
+
+| Scope | Destination |
+|---|---|
+| User | `~/.qwen/skills/working-notes/` |
+| Project | `<repo>/.qwen/skills/working-notes/` |
+
+Qwen Code also reads `~/.agents/skills/` and `.agents/skills/`; a skill in `.qwen` wins when both exist. Skills load automatically when the task matches the description.
+
+## Command Code
+
+```bash
+npx -y github:FiredMosquito831/working-notes install --agent commandcode --scope project
+```
+
+| Scope | Destination |
+|---|---|
+| Project (only) | `<repo>/.commandcode/skills/working-notes/` |
+
+Command Code documents project-level skills only. A user-scope install is skipped with a note; `--agent all --scope user` skips it too. Skills are detected and activated automatically.
+
+## Google Antigravity
+
+```bash
+npx -y github:FiredMosquito831/working-notes install --agent antigravity
+npx -y github:FiredMosquito831/working-notes install --agent antigravity-cli
 ```
 
 | Target | User destination | Project destination |
@@ -111,25 +205,25 @@ OpenCode loads skills through its native `skill` tool. It also reads `~/.claude/
 | IDE and app | `~/.gemini/config/skills/working-notes/` | `<repo>/.agents/skills/working-notes/` |
 | CLI (`agy`) | `~/.gemini/antigravity-cli/skills/working-notes/` | `<repo>/.agents/skills/working-notes/` |
 
-Skills appear as slash commands (`/working-notes`) and through automatic discovery. The managed block in `AGENTS.md` also becomes a workspace rule.
+The IDE also reads `~/.gemini/antigravity/skills/` (legacy) and `.agent/skills/` (legacy). Skills appear as `/working-notes` and through automatic discovery. The managed block in `AGENTS.md` also becomes a workspace rule.
 
-### DeepSeek Harness (`dsh`)
+## Cline
 
 ```bash
-... install --agent deepseek
+npx -y github:FiredMosquito831/working-notes install --agent cline
 ```
 
 | Scope | Destination |
 |---|---|
-| User | `~/.agents/skills/working-notes/` |
-| Project | `<repo>/.agents/skills/working-notes/` |
+| User | `~/.cline/skills/working-notes/` |
+| Project | `<repo>/.cline/skills/working-notes/` |
 
-`dsh` discovers directory bundles (`<name>/SKILL.md`) in its skills roots. It also reads `AGENTS.md` and `CLAUDE.md`, so the installed rules block applies even when the skill is not invoked.
+Cline also reads `.clinerules/skills/` and `.claude/skills/`. The skill name must match its folder. Restart the extension or start a new task, then use the `/` menu or let Cline match the description.
 
-### Kilo Code
+## Kilo Code
 
 ```bash
-... install --agent kilo
+npx -y github:FiredMosquito831/working-notes install --agent kilo
 ```
 
 | Scope | Destination |
@@ -137,21 +231,35 @@ Skills appear as slash commands (`/working-notes`) and through automatic discove
 | User | `~/.kilo/skills/working-notes/` |
 | Project | `<repo>/.kilo/skills/working-notes/` |
 
-### Command Code
+Run `/reload` in a session to pick up a new skill without restarting. Invoke as `/working-notes`.
+
+## Windsurf / Devin Desktop
 
 ```bash
-... install --agent commandcode --scope project
+npx -y github:FiredMosquito831/working-notes install --agent windsurf
 ```
 
-Command Code documents project-level skills only: `<repo>/.commandcode/skills/working-notes/`. A user-scope install of Command Code is skipped with a note. Use `--dir` if your build documents a different path.
+| Scope | Destination |
+|---|---|
+| User | `~/.codeium/windsurf/skills/working-notes/` |
+| Project | `<repo>/.windsurf/skills/working-notes/` |
 
-### Any other harness
+The current Devin Desktop documentation uses `.devin/skills/` and `~/.config/devin/skills/`; the legacy `.windsurf` paths are still read. If your build uses only the new layout:
 
 ```bash
-... install --dir ~/.my-agent/skills
+npx -y github:FiredMosquito831/working-notes install --agent windsurf --dir ~/.config/devin/skills
+npx -y github:FiredMosquito831/working-notes install --agent windsurf --dir .devin/skills --scope project
 ```
 
-The skill is self-contained. Point `--dir` at whatever directory your harness scans for `SKILL.md` folders. You can repeat `--dir` or pass a comma-separated list.
+Skills load automatically in Cascade.
+
+## Any other harness
+
+```bash
+npx -y github:FiredMosquito831/working-notes install --dir ~/.my-agent/skills
+```
+
+The skill is self-contained. Point `--dir` at whatever directory your harness scans for `SKILL.md` folders. Repeat `--dir` or pass a comma-separated list.
 
 ## Project vs user scope
 
@@ -160,13 +268,13 @@ The skill is self-contained. Point `--dir` at whatever directory your harness sc
 | `user` (default) | Home directory | You want the skill in every project |
 | `project` | The current repository (`--cwd` to change) | The skill should ship with the repo and be reviewed like code |
 
-Project-scope copies can be committed. That is useful for teams that want the same rules everywhere; it also means the skill updates when the repository does.
+Project copies can be committed. That is useful for teams that want the same rules everywhere; it also means the skill updates when the repository does.
 
 ## Options
 
 | Option | Meaning |
 |---|---|
-| `-a, --agent <list>` | `auto` (default), `all`, or a comma list: `claude-code, codex, opencode, antigravity, antigravity-cli, deepseek, kilo, commandcode` |
+| `-a, --agent <list>` | `auto` (default), `all`, or a comma list: `claude-code`, `codex`, `cursor`, `copilot`, `gemini`, `opencode`, `antigravity`, `antigravity-cli`, `cline`, `qwen`, `kilo`, `windsurf`, `deepseek`, `commandcode` |
 | `-s, --scope <scope>` | `user` (default) or `project` |
 | `-d, --dir <path>` | Explicit directory, repeatable. Bypasses the harness map |
 | `--cwd <path>` | Project root for project scope |
@@ -190,7 +298,7 @@ Then start a session in a repository and run:
 /working-notes init
 ```
 
-If the slash command is not suggested, ask the agent to read `SKILL.md` from the path `list` printed. Every harness supports that fallback.
+If the slash command is not offered, ask the agent to read `SKILL.md` from the path `list` printed. Every harness supports that fallback.
 
 ## Update
 
@@ -198,11 +306,7 @@ If the slash command is not suggested, ask the agent to read `SKILL.md` from the
 npx -y github:FiredMosquito831/working-notes install --agent all
 ```
 
-The installer refreshes copies it owns, keeps your project artifacts untouched, and reports `up-to-date` when nothing changed. Plugin users:
-
-```text
-/plugin update working-notes
-```
+The installer refreshes copies it owns, keeps project artifacts untouched, and reports `up-to-date` when nothing changed. Plugin users run `/plugin update working-notes`.
 
 ## Uninstall
 
@@ -230,16 +334,22 @@ The clone includes documentation, tests and the installer, which the skill does 
 Name the harness explicitly (`--agent claude-code`) or pass `--dir`.
 
 **The slash command does not appear**  
-Restart the session. Most harnesses index skills at startup. If it still does not appear, confirm that `SKILL.md` sits directly inside `<skills dir>/working-notes/` and that the frontmatter `name` is `working-notes`.
+Restart the session or reload the harness. Most index skills at startup; Kilo Code has `/reload`. Confirm that `SKILL.md` sits directly inside `<skills dir>/working-notes/`, that the frontmatter `name` is `working-notes`, and that it matches the folder. Cursor, Cline and VS Code enforce the name-to-folder match.
+
+**The skill is listed but never used**  
+Tighten the request to the skill's purpose, or invoke it explicitly (`/working-notes`, `/skills`, `$mention`). Automatic activation depends on the description matching the task.
 
 **A directory was refused**  
 The destination exists but was not installed by this tool. Inspect it, move it aside, or pass `--force`.
+
+**Command Code is skipped at user scope**  
+Command Code documents project-level skills only. Install with `--scope project`.
 
 **`npx` cannot fetch the repository**  
 Check git and network access, or clone manually and run `node cli/working-notes.mjs install`.
 
 **Windows paths**  
-The CLI uses Node's path handling. Use `--dir "C:\path\to\skills"` or a forward-slash path; both work. When running the PowerShell wrapper from a clone, use `.\install.ps1`.
+The CLI uses Node's path handling. Use `--dir "C:\path\to\skills"` or a forward-slash path; both work. From a clone, run `.\install.ps1`.
 
 **CI or a non-interactive shell**  
 Pass `--agent ... --scope ... --quiet`. The installer never prompts.

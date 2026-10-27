@@ -109,6 +109,20 @@ test('project scope uses the documented harness paths', (t) => {
   assert.ok(fs.existsSync(path.join(project, '.claude', 'skills', 'working-notes', 'SKILL.md')));
 });
 
+test('editor harnesses use their own project directories', (t) => {
+  const project = tempDir(t);
+  const agents = 'cursor,copilot,gemini,cline,qwen,windsurf';
+  const result = run(['install', '--agent', agents, '--scope', 'project', '--cwd', project, '--json']);
+  assert.equal(result.status, 0, result.stderr);
+  assert.equal(result.json.results.length, 6);
+  for (const dir of ['.cursor', '.github', '.gemini', '.cline', '.qwen', '.windsurf']) {
+    assert.ok(
+      fs.existsSync(path.join(project, dir, 'skills', 'working-notes', 'SKILL.md')),
+      `${dir}/skills must receive the skill`,
+    );
+  }
+});
+
 test('harnesses that share a directory are installed once', (t) => {
   const project = tempDir(t);
   const result = run([
@@ -149,7 +163,11 @@ test('list reports every supported harness and whether it is detected', () => {
   const result = run(['list', '--json']);
   assert.equal(result.status, 0, result.stderr);
   const keys = result.json.map((row) => row.key);
-  for (const expected of ['claude-code', 'codex', 'opencode', 'antigravity', 'deepseek', 'commandcode']) {
+  for (const expected of [
+    'claude-code', 'codex', 'cursor', 'copilot', 'opencode', 'gemini',
+    'antigravity', 'antigravity-cli', 'cline', 'qwen', 'windsurf',
+    'deepseek', 'kilo', 'commandcode',
+  ]) {
     assert.ok(keys.includes(expected), `${expected} must be listed`);
   }
   assert.ok(result.json.every((row) => typeof row.detected === 'boolean'));

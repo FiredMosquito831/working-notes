@@ -13,7 +13,7 @@ working-notes
 **Description** (232 characters)
 
 ```text
-An Agent Skill that gives AI coding agents an operating memory: specs, binding decisions, a PR queue, handoffs and self-verification. Works with Claude Code, Codex, OpenCode, Antigravity, Command Code and DeepSeek Harness.
+An Agent Skill that gives AI coding agents an operating memory: specs, binding decisions, a PR queue, handoffs and self-verification. Works with Claude Code, Codex, Cursor, Copilot, Gemini CLI, OpenCode, Antigravity and more.
 ```
 
 **Topics** (20, GitHub's limit)
@@ -23,22 +23,22 @@ agent-skills
 claude-code
 claude-code-skill
 codex
+cursor
+github-copilot
+gemini-cli
 opencode
 antigravity
-command-code
+cline
+qwen-code
 deepseek-harness
+command-code
+windsurf
 ai-agents
-ai-coding-agent
 multi-agent
 orchestration
 spec-driven-development
 context-engineering
 developer-tools
-workflow-automation
-prompt-engineering
-llm
-programming
-productivity
 ```
 
 **Social preview**
@@ -66,9 +66,9 @@ Or with the GitHub CLI, which can create it, set the description, topics and pus
 
 ```bash
 gh repo create working-notes --public --source=. --remote=origin --push \
-  --description "An Agent Skill that gives AI coding agents an operating memory: specs, binding decisions, a PR queue, handoffs and self-verification. Works with Claude Code, Codex, OpenCode, Antigravity, Command Code and DeepSeek Harness."
+  --description "An Agent Skill that gives AI coding agents an operating memory: specs, binding decisions, a PR queue, handoffs and self-verification. Works with Claude Code, Codex, Cursor, Copilot, Gemini CLI, OpenCode, Antigravity and more."
 
-gh repo edit --add-topic agent-skills,claude-code,claude-code-skill,codex,opencode,antigravity,command-code,deepseek-harness,ai-agents,ai-coding-agent,multi-agent,orchestration,spec-driven-development,context-engineering,developer-tools,workflow-automation,prompt-engineering,llm,programming,productivity
+gh repo edit --add-topic agent-skills,claude-code,claude-code-skill,codex,cursor,github-copilot,gemini-cli,opencode,antigravity,cline,qwen-code,deepseek-harness,command-code,windsurf,ai-agents,multi-agent,orchestration,spec-driven-development,context-engineering,developer-tools
 ```
 
 Then upload the social preview in the web UI.

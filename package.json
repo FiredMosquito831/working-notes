@@ -1,6 +1,6 @@
 {
   "name": "working-notes-skill",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A portable Agent Skill that gives any AI coding harness an operating manual: investigation, specs, decisions, one implementer, a binding PR queue, handoffs and self-verification.",
   "keywords": [
     "agent-skills",
@@ -17,7 +17,13 @@
     "multi-agent",
     "context-engineering",
     "pr-queue",
-    "handoff"
+    "handoff",
+    "cursor",
+    "github-copilot",
+    "gemini-cli",
+    "cline",
+    "qwen-code",
+    "windsurf"
   ],
   "license": "MIT",
   "author": {

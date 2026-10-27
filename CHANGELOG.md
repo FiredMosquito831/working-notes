@@ -2,6 +2,20 @@
 
 All notable changes to this project are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project uses [Semantic Versioning](https://semver.org/).
 
+## [1.1.0] - 2026-10-28
+
+### Added
+
+- Documented support for six more harnesses: Cursor, GitHub Copilot, Gemini CLI, Cline, Qwen Code, and Windsurf / Devin Desktop. Fourteen harnesses in total.
+- Copy-paste install commands per harness in the README and `docs/INSTALL.md`, with exact user and project paths, invocation, and harness-specific notes.
+- A contents list, a comparison table, and per-harness badges in the README.
+- Harness compatibility aliases (`.agents/skills`, `.claude/skills`, `.codex/skills`) documented per harness.
+
+### Changed
+
+- Auto-detection now uses harness-specific markers instead of shared directories, so a shared `.agents` directory no longer counts as three installed harnesses.
+- The harness matrix, FAQ, publishing metadata and repository topics reflect all fourteen harnesses.
+
 ## [1.0.0] - 2026-10-27
 
 ### Added
@@ -18,4 +32,5 @@ All notable changes to this project are documented here. The format follows [Kee
 - Installer test suite, repository validator and cross-platform CI.
 - Documentation: install, method, harness matrix, FAQ, contributing.
 
+[1.1.0]: https://github.com/FiredMosquito831/working-notes/releases/tag/v1.1.0
 [1.0.0]: https://github.com/FiredMosquito831/working-notes/releases/tag/v1.0.0

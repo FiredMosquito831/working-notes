@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/banner.svg" alt="working-notes: a portable Agent Skill for Claude Code, Codex, OpenCode, Antigravity, Command Code and DeepSeek Harness" width="100%">
+<img src="assets/banner.svg" alt="working-notes: a portable Agent Skill for Claude Code, Codex, Cursor, GitHub Copilot, Gemini CLI, OpenCode, Antigravity, Cline, Qwen Code, Command Code and DeepSeek Harness" width="100%">
 
 <h1>working-notes</h1>
 
@@ -10,10 +10,23 @@
 investigate before building, write a spec, record the decision, run <em>one</em> implementer,<br>
 verify every claim yourself, and keep a queue, handoff and lesson log that survive the session.</p>
 
+<p>Runs in <strong>Claude Code</strong>, <strong>Codex</strong>, <strong>Cursor</strong>, <strong>GitHub Copilot</strong>, <strong>Gemini CLI</strong>, <strong>OpenCode</strong>,
+<strong>Antigravity</strong>, <strong>Cline</strong>, <strong>Qwen Code</strong>, <strong>Kilo Code</strong>, <strong>Windsurf</strong>, <strong>Command Code</strong>
+and <strong>DeepSeek Harness</strong>, plus any harness that reads <code>SKILL.md</code>.</p>
+
 <p>
 <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-22c55e?style=flat-square" alt="MIT license"></a>
 <img src="https://img.shields.io/badge/format-SKILL.md-8b5cf6?style=flat-square" alt="Agent Skills SKILL.md format">
-<img src="https://img.shields.io/badge/works%20with-Claude%20Code%20%7C%20Codex%20%7C%20OpenCode%20%7C%20Antigravity%20%7C%20Command%20Code%20%7C%20DeepSeek%20Harness-0ea5e9?style=flat-square" alt="Works with Claude Code, Codex, OpenCode, Antigravity, Command Code and DeepSeek Harness">
+<img src="https://img.shields.io/badge/Claude_Code-skill-d97757?style=flat-square" alt="Claude Code skill">
+<img src="https://img.shields.io/badge/Codex-skill-10a37f?style=flat-square" alt="OpenAI Codex skill">
+<img src="https://img.shields.io/badge/Cursor-skill-111827?style=flat-square" alt="Cursor skill">
+<img src="https://img.shields.io/badge/GitHub_Copilot-skill-24292e?style=flat-square" alt="GitHub Copilot skill">
+<img src="https://img.shields.io/badge/Gemini_CLI-skill-4285f4?style=flat-square" alt="Gemini CLI skill">
+<img src="https://img.shields.io/badge/OpenCode-skill-6b7280?style=flat-square" alt="OpenCode skill">
+<img src="https://img.shields.io/badge/Antigravity-skill-f59e0b?style=flat-square" alt="Google Antigravity skill">
+<img src="https://img.shields.io/badge/Cline-skill-22c55e?style=flat-square" alt="Cline skill">
+<img src="https://img.shields.io/badge/Qwen_Code-skill-615ced?style=flat-square" alt="Qwen Code skill">
+<img src="https://img.shields.io/badge/DeepSeek_Harness-skill-0ea5e9?style=flat-square" alt="DeepSeek Harness skill">
 <img src="https://img.shields.io/badge/node-%E2%89%A518-339933?style=flat-square&logo=node.js&logoColor=white" alt="Node 18 or newer">
 </p>
 
@@ -27,6 +40,26 @@ verify every claim yourself, and keep a queue, handoff and lesson log that survi
 </p>
 
 </div>
+
+<details>
+<summary><strong>Contents</strong></summary>
+
+- [Why your agent needs this](#why-your-agent-needs-this)
+- [How it works](#how-it-works)
+- [Quick start](#quick-start)
+- [Install](#install)
+  - [Terminal and CLI harnesses](#terminal-and-cli-harnesses)
+  - [Editor and IDE harnesses](#editor-and-ide-harnesses)
+  - [Manual install](#manual-install)
+- [What it creates](#what-it-creates)
+- [The rules](#the-rules)
+- [How it compares](#how-it-compares)
+- [Who it is for](#who-it-is-for)
+- [FAQ](#faq)
+- [Documentation](#documentation)
+- [Repository layout](#repository-layout)
+
+</details>
 
 ---
 
@@ -124,35 +157,54 @@ The plugin loads the repository skill as `/working-notes` (also namespaced as `/
 
 ## Install
 
-Every harness below reads the open [Agent Skills](https://github.com/anthropics/skills) layout: a directory containing `SKILL.md` plus optional supporting files. `working-notes` also writes the managed block into `CLAUDE.md` and `AGENTS.md`, so harnesses that only read instruction files still get the rules.
+One installer, every harness. Each command below is complete and copy-paste ready. It copies the skill folder (`SKILL.md` + `templates/`) into the directory that harness already reads, and records what it installed so updates and removal are safe.
 
-| Harness | Install | User scope (Windows / macOS / Linux) | Project scope | Invoke |
-|---|---|---|---|---|
-| **Claude Code** | `... --agent claude-code` | `~/.claude/skills/working-notes/` | `.claude/skills/working-notes/` | `/working-notes` |
-| **OpenAI Codex** | `... --agent codex` | `~/.agents/skills/working-notes/` | `.agents/skills/working-notes/` | `/skills`, or `$` mention |
-| **OpenCode** | `... --agent opencode` | `~/.agents/skills/working-notes/` | `.agents/skills/working-notes/` | `skill` tool |
-| **Google Antigravity** | `... --agent antigravity` | `~/.gemini/config/skills/working-notes/` | `.agents/skills/working-notes/` | `/working-notes` |
-| **Antigravity CLI (`agy`)** | `... --agent antigravity-cli` | `~/.gemini/antigravity-cli/skills/working-notes/` | `.agents/skills/working-notes/` | `/working-notes` |
-| **DeepSeek Harness (`dsh`)** | `... --agent deepseek` | `~/.agents/skills/working-notes/` | `.agents/skills/working-notes/` | skills catalog |
-| **Kilo Code** | `... --agent kilo` | `~/.kilo/skills/working-notes/` | `.kilo/skills/working-notes/` | `/working-notes` |
-| **Command Code** | `... --agent commandcode` | project scope only | `.commandcode/skills/working-notes/` | automatic |
-| **Anything else** | `... --dir <skills dir>` | any path | any path | depends on the host |
+Install for every harness detected on the machine:
 
 ```bash
-# every harness detected on this machine
 npx -y github:FiredMosquito831/working-notes install
+```
 
+### Terminal and CLI harnesses
+
+| Harness | Install command | Invoke |
+|---|---|---|
+| **Claude Code** | `npx -y github:FiredMosquito831/working-notes install --agent claude-code` | `/working-notes` |
+| **OpenAI Codex** | `npx -y github:FiredMosquito831/working-notes install --agent codex` | `/skills`, or `$` to mention |
+| **OpenCode** | `npx -y github:FiredMosquito831/working-notes install --agent opencode` | native `skill` tool |
+| **Gemini CLI** | `npx -y github:FiredMosquito831/working-notes install --agent gemini` | automatic `activate_skill` |
+| **DeepSeek Harness (`dsh`)** | `npx -y github:FiredMosquito831/working-notes install --agent deepseek` | skills catalog |
+| **Qwen Code** | `npx -y github:FiredMosquito831/working-notes install --agent qwen` | automatic |
+| **Command Code** | `npx -y github:FiredMosquito831/working-notes install --agent commandcode --scope project` | automatic |
+| **Antigravity CLI (`agy`)** | `npx -y github:FiredMosquito831/working-notes install --agent antigravity-cli` | `/working-notes` |
+
+### Editor and IDE harnesses
+
+| Harness | Install command | Invoke |
+|---|---|---|
+| **Cursor** | `npx -y github:FiredMosquito831/working-notes install --agent cursor` | automatic, or `/` in chat |
+| **GitHub Copilot** | `npx -y github:FiredMosquito831/working-notes install --agent copilot` | `/` menu, `/skills` |
+| **Google Antigravity** | `npx -y github:FiredMosquito831/working-notes install --agent antigravity` | `/working-notes` |
+| **Cline** | `npx -y github:FiredMosquito831/working-notes install --agent cline` | `/` menu |
+| **Kilo Code** | `npx -y github:FiredMosquito831/working-notes install --agent kilo` | `/working-notes` |
+| **Windsurf / Devin Desktop** | `npx -y github:FiredMosquito831/working-notes install --agent windsurf` | automatic in Cascade |
+
+Every harness reads the open [Agent Skills](https://github.com/anthropics/skills) layout. `working-notes` also writes the managed block into `CLAUDE.md` and `AGENTS.md`, so instruction-file-only modes still receive the ten rules.
+
+### All harnesses, or a project copy
+
+```bash
 # every supported harness, user scope
 npx -y github:FiredMosquito831/working-notes install --agent all
 
-# a project-local copy, shared by Codex, OpenCode, Antigravity and dsh
+# a project-local copy, committed with the repo
 npx -y github:FiredMosquito831/working-notes install --agent all --scope project
 
 # anywhere else that reads SKILL.md
 npx -y github:FiredMosquito831/working-notes install --dir ~/.my-agent/skills
 ```
 
-Harnesses that share a directory (`~/.agents/skills`, `.agents/skills`) are written once, not once per harness. Run `working-notes list` to see the resolved paths, and `working-notes doctor` to check an installed copy against the CLI version.
+Codex, OpenCode, DeepSeek Harness and Antigravity's project scope share `.agents/skills`; the installer writes one copy, not one per harness. `working-notes list` shows every resolved path and whether the harness is detected. `working-notes doctor` checks installed copies against the CLI version.
 
 ### Manual install
 
@@ -163,7 +215,7 @@ cp -r /tmp/working-notes ~/.claude/skills/working-notes
 
 Use the folder your harness documents instead of `~/.claude/skills`. The skill needs `SKILL.md` and `templates/`; everything else in the repository is documentation, tests and the installer.
 
-Full paths, verification steps, updates and uninstall: **[docs/INSTALL.md](docs/INSTALL.md)**.
+Exact paths per harness, verification steps, updates, uninstall and troubleshooting: **[docs/INSTALL.md](docs/INSTALL.md)**. Support status and vendor links: **[docs/HARNESSES.md](docs/HARNESSES.md)**.
 
 ---
 
@@ -229,9 +281,25 @@ The full text, including delegation, verification, CI and safety rules, is in [`
 
 ---
 
+## How it compares
+
+| | A long `CLAUDE.md` | A spec kit | **working-notes** |
+|---|---|---|---|
+| Rules the agent reads first | Yes | Partly | Yes, managed block in `CLAUDE.md` / `AGENTS.md` |
+| Decisions that survive a new session | No | If you keep the spec | Numbered `USER DECISIONS` blocks with times |
+| A queue that matches reality | No | No | Binding `QUEUE.md`, updated at every PR |
+| Parallel-agent safety | No | No | One implementer, one production PR at a time |
+| Proof that "shipped" is shipped | No | No | Merge/tag/artefact/CI/live verify recipe |
+| Lessons captured when learned | No | No | Dated log with evidence and origin |
+| Runtime dependency | None | A tool | None |
+
+It is not a replacement for your agent's own planning. It is the part the agent cannot improvise: what was decided, what is next, and what counts as proof.
+
+---
+
 ## Who it is for
 
-- **Solo builders** running Claude Code, Codex, OpenCode, Antigravity or DeepSeek Harness on a real repo, who are tired of re-explaining the project every morning.
+- **Solo builders** running Claude Code, Cursor, Codex, Copilot, Gemini CLI, OpenCode, Antigravity, Cline, Qwen Code or DeepSeek Harness on a real repo, who are tired of re-explaining the project every morning.
 - **Teams** that want agent work to leave the same trail as human work: a spec, a decision, a queue, a proof.
 - **Long arcs** that outlive one context window: multi-PR features, migrations, release trains.
 - **Anyone** who has watched an agent say "done" without running anything.
@@ -245,7 +313,7 @@ It is opinionated on purpose. It assumes you want fewer, safer, better-proven ch
 <details>
 <summary><strong>Is this only for Claude Code?</strong></summary>
 
-No. The skill uses the open Agent Skills format (`SKILL.md`), which Claude Code, OpenAI Codex, OpenCode, Google Antigravity, DeepSeek Harness, Kilo Code and others read. The installer also writes the managed rules block into `CLAUDE.md` and `AGENTS.md`, so instruction-file-only harnesses still get the rules.
+No. The skill uses the open Agent Skills format (`SKILL.md`), which Claude Code, Codex, Cursor, GitHub Copilot, Gemini CLI, OpenCode, Antigravity, Cline, Qwen Code, Kilo Code, Windsurf, Command Code and DeepSeek Harness read. The installer also writes the managed rules block into `CLAUDE.md` and `AGENTS.md`, so instruction-file-only harnesses still get the rules.
 
 </details>
 
@@ -344,6 +412,6 @@ claude plugin validate .   # Claude Code plugin and marketplace validation
 
 **If this saves you one re-explained project, star the repo. It helps other agent runners find it.**
 
-<sub>Topics: agent skills · Claude Code skill · Codex skill · OpenCode skill · Antigravity workflows · Command Code skills · DeepSeek Harness skills · spec-driven development · multi-agent orchestration · context engineering · AI coding agents · SKILL.md · AGENTS.md · CLAUDE.md · PR queue · handoff notes</sub>
+<sub>Topics: agent skills · Claude Code skill · Codex skill · Cursor skill · GitHub Copilot skill · Gemini CLI skill · OpenCode skill · Antigravity skill · Cline skill · Qwen Code skill · Command Code skills · DeepSeek Harness skills · spec-driven development · multi-agent orchestration · context engineering · AI coding agents · SKILL.md · AGENTS.md · CLAUDE.md · PR queue · handoff notes</sub>
 
 </div>

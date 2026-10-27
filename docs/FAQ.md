@@ -28,7 +28,7 @@ MIT. See [LICENSE](../LICENSE).
 
 ### Which harnesses are supported?
 
-Claude Code, OpenAI Codex, OpenCode, Google Antigravity (IDE, app and CLI), DeepSeek Harness, Kilo Code and Command Code have documented paths in the installer. Anything else that reads `SKILL.md` works with `--dir`. See [the harness matrix](HARNESSES.md).
+Claude Code, OpenAI Codex, Cursor, GitHub Copilot, Gemini CLI, OpenCode, Google Antigravity (IDE, app and CLI), Cline, Qwen Code, Kilo Code, Windsurf / Devin Desktop, DeepSeek Harness and Command Code have documented paths in the installer. Anything else that reads `SKILL.md` works with `--dir`. See [the harness matrix](HARNESSES.md).
 
 ### Do I install it per project or once per machine?
 
