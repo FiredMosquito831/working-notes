@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project uses [Semantic Versioning](https://semver.org/).
 
+## [1.2.2] - 2026-10-28
+
+### Fixed
+
+- Shipping one binary (`working-notes`) instead of two. On Windows, a version-pinned `npx agent-working-notes@x.y.z` could resolve the second alias and fail before running the CLI. One binary keeps `npx agent-working-notes` and pinned installs unambiguous.
+- Post-publish verification now retries for up to three minutes. npm accepts a publish before the registry document lists the new version, which made the 1.2.1 workflow fail after a successful publish.
+
 ## [1.2.1] - 2026-10-28
 
 ### Fixed
@@ -54,6 +61,7 @@ All notable changes to this project are documented here. The format follows [Kee
 - Installer test suite, repository validator and cross-platform CI.
 - Documentation: install, method, harness matrix, FAQ, contributing.
 
+[1.2.2]: https://github.com/FiredMosquito831/working-notes/releases/tag/v1.2.2
 [1.2.1]: https://github.com/FiredMosquito831/working-notes/releases/tag/v1.2.1
 [1.2.0]: https://github.com/FiredMosquito831/working-notes/releases/tag/v1.2.0
 [1.1.0]: https://github.com/FiredMosquito831/working-notes/releases/tag/v1.1.0

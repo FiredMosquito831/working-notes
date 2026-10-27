@@ -112,10 +112,10 @@ Or install once and use the binary in every shell:
 
 ```bash
 npm install -g agent-working-notes
-agent-working-notes install
+working-notes install
 ```
 
-The npm package mirrors the latest GitHub release and is published from the tagged commit. `working-notes` is an alias for the same binary.
+The npm package mirrors the latest GitHub release and is published from the tagged commit. The binary is `working-notes`.
 
 ### Straight from GitHub
 

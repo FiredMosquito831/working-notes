@@ -112,7 +112,7 @@ Then upload the social preview in the web UI.
 | | |
 |---|---|
 | Package | `agent-working-notes` |
-| Binaries | `agent-working-notes`, `working-notes` |
+| Binary | `working-notes` |
 | Registry page | https://www.npmjs.com/package/agent-working-notes |
 | Publish workflow | `.github/workflows/publish.yml` |
 

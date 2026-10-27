@@ -70,7 +70,7 @@ check('package and plugin manifests agree', () => {
   const market = json('.claude-plugin/marketplace.json');
   assert(pkg.name === 'agent-working-notes', 'package name changed; update docs, workflow and tests');
   assert(pkg.bin && pkg.bin['working-notes'], 'the working-notes binary must stay available');
-  assert(pkg.bin['agent-working-notes'], 'the package name must also resolve as a binary');
+  assert(Object.keys(pkg.bin).length === 1, 'one binary keeps npx unambiguous; do not add aliases');
   assert(pkg.publishConfig?.access === 'public', 'an unscoped package must publish with public access');
   assert(plugin.name === 'working-notes', 'plugin name must match the skill name');
   assert(plugin.version === pkg.version, 'plugin version must match package version');

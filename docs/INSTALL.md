@@ -39,10 +39,10 @@ To keep a binary on `PATH` instead of downloading through `npx` each time:
 
 ```bash
 npm install -g agent-working-notes
-agent-working-notes install
+working-notes install
 ```
 
-`working-notes` is an alias for the same binary.
+The binary is `working-notes`.
 
 ### Platform wrappers
 
