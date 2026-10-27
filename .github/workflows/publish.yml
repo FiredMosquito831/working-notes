@@ -61,33 +61,19 @@ jobs:
         if: steps.check.outputs.publish == 'true'
         run: npm run validate
 
-      - name: Check npm credentials
-        id: auth
+      - name: Publish with provenance
         if: steps.check.outputs.publish == 'true'
+        run: |
+          if [ -n "$NPM_TOKEN" ]; then
+            export NODE_AUTH_TOKEN="$NPM_TOKEN"
+            echo "Publishing with the NPM_TOKEN secret."
+          else
+            echo "No NPM_TOKEN set; using npm trusted publishing (OIDC)."
+          fi
+          npm publish --provenance --access public
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          TRUSTED: ${{ vars.NPM_TRUSTED_PUBLISHING }}
-        run: |
-          if [ -n "$NPM_TOKEN" ] || [ "$TRUSTED" = "true" ]; then
-            echo "ready=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "ready=false" >> "$GITHUB_OUTPUT"
-            echo "::notice::npm publishing is not configured; skipping. See docs/PUBLISHING.md."
-            {
-              echo "### npm publish skipped"
-              echo
-              echo "No \`NPM_TOKEN\` secret, and \`NPM_TRUSTED_PUBLISHING\` is not \`true\`."
-              echo
-              echo "Add either one to publish every future version automatically. See [docs/PUBLISHING.md](../blob/main/docs/PUBLISHING.md)."
-            } >> "$GITHUB_STEP_SUMMARY"
-          fi
-
-      - name: Publish with provenance
-        if: steps.check.outputs.publish == 'true' && steps.auth.outputs.ready == 'true'
-        run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Verify the published version
-        if: steps.check.outputs.publish == 'true' && steps.auth.outputs.ready == 'true'
+        if: steps.check.outputs.publish == 'true'
         run: npm view "agent-working-notes@${{ steps.version.outputs.value }}" version

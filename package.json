@@ -1,6 +1,6 @@
 {
   "name": "agent-working-notes",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A portable Agent Skill that gives any AI coding harness an operating manual: investigation, specs, decisions, one implementer, a binding PR queue, handoffs and self-verification.",
   "keywords": [
     "agent-skills",

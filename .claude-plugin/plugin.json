@@ -1,7 +1,7 @@
 {
   "name": "working-notes",
   "displayName": "working-notes",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "The operating manual for an AI-orchestrated repo: discuss first, investigate, spec, decide, one implementer, verify everything, and keep a binding queue, handoffs and lessons.",
   "author": {
     "name": "FiredMosquito831",

@@ -10,7 +10,7 @@
       "name": "working-notes",
       "source": "./",
       "description": "Initialize a project's orchestration setup: WORKING-NOTES.md, QUEUE.md, handoffs, specs, and a managed How-we-work block in CLAUDE.md and AGENTS.md.",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "license": "MIT",
       "keywords": [
         "agent-skills",

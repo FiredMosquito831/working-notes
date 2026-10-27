@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project uses [Semantic Versioning](https://semver.org/).
 
+## [1.2.1] - 2026-10-28
+
+### Fixed
+
+- Automatic publishing with npm **trusted publishing** no longer requires a repository variable. The workflow already requests `id-token: write`; with no `NPM_TOKEN` secret it relies on the GitHub OIDC token, which is what npm's trusted publisher expects.
+- Publishing documentation now states that trusted publishing needs only the npm-side configuration, and that a missing token is reported by npm instead of being skipped silently.
+
 ## [1.2.0] - 2026-10-28
 
 ### Added
@@ -47,6 +54,7 @@ All notable changes to this project are documented here. The format follows [Kee
 - Installer test suite, repository validator and cross-platform CI.
 - Documentation: install, method, harness matrix, FAQ, contributing.
 
+[1.2.1]: https://github.com/FiredMosquito831/working-notes/releases/tag/v1.2.1
 [1.2.0]: https://github.com/FiredMosquito831/working-notes/releases/tag/v1.2.0
 [1.1.0]: https://github.com/FiredMosquito831/working-notes/releases/tag/v1.1.0
 [1.0.0]: https://github.com/FiredMosquito831/working-notes/releases/tag/v1.0.0

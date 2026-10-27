@@ -151,11 +151,7 @@ A concurrency group prevents two publishes racing. Provenance is attached to eve
    - Organization or user: `FiredMosquito831`
    - Repository: `working-notes`
    - Workflow filename: `publish.yml`
-3. Enable the workflow path:
-
-   ```bash
-   gh variable set NPM_TRUSTED_PUBLISHING --body true
-   ```
+3. Nothing else. The workflow already requests `id-token: write`, and npm uses the OIDC token when no `NPM_TOKEN` is present. No repository variable and no secret are required.
 
 **Token**
 
@@ -163,9 +159,9 @@ A concurrency group prevents two publishes racing. Provenance is attached to eve
 gh secret set NPM_TOKEN
 ```
 
-Use a granular access token with publish rights for this package.
+Use a granular access token with publish rights for this package. When the secret exists, the workflow passes it to npm and skips OIDC.
 
-Until one of these is configured, the workflow skips with a notice and a step summary instead of failing. A release does not silently break CI while you set it up.
+Trusted publishing only works for a package that already exists, so the first publish must be manual. If neither method is configured, a new version fails at the publish step with npm's authentication error; nothing is published silently.
 
 ### Release flow
 
