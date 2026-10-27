@@ -52,6 +52,6 @@
   "scripts": {
     "install-skill": "node cli/working-notes.mjs install",
     "validate": "node scripts/validate.mjs",
-    "test": "node --test tests/*.test.mjs"
+    "test": "node scripts/test.mjs"
   }
 }
