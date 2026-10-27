@@ -61,8 +61,8 @@ All notable changes to this project are documented here. The format follows [Kee
 - Installer test suite, repository validator and cross-platform CI.
 - Documentation: install, method, harness matrix, FAQ, contributing.
 
-[1.2.2]: https://github.com/FiredMosquito831/working-notes/releases/tag/v1.2.2
-[1.2.1]: https://github.com/FiredMosquito831/working-notes/releases/tag/v1.2.1
-[1.2.0]: https://github.com/FiredMosquito831/working-notes/releases/tag/v1.2.0
-[1.1.0]: https://github.com/FiredMosquito831/working-notes/releases/tag/v1.1.0
-[1.0.0]: https://github.com/FiredMosquito831/working-notes/releases/tag/v1.0.0
+[1.2.2]: https://www.npmjs.com/package/agent-working-notes/v/1.2.2
+[1.2.1]: https://www.npmjs.com/package/agent-working-notes/v/1.2.1
+[1.2.0]: https://www.npmjs.com/package/agent-working-notes/v/1.2.0
+[1.1.0]: https://github.com/FiredMosquito831/working-notes/commit/1d0fd87
+[1.0.0]: https://github.com/FiredMosquito831/working-notes/commit/88a8a4d
