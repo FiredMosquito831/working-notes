@@ -25,6 +25,8 @@ Thanks for considering a contribution. This repository is deliberately small: on
 
 ## Development
 
+Run the CLI from this repository as `node cli/working-notes.mjs ...`. Do not test `npx agent-working-notes` from the repository root: npm resolves the current package and will not fetch the published one. Run `npx` from a separate temporary project.
+
 ```bash
 npm test
 npm run validate

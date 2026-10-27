@@ -6,7 +6,7 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ### Fixed
 
-- Shipping one binary (`working-notes`) instead of two. On Windows, a version-pinned `npx agent-working-notes@x.y.z` could resolve the second alias and fail before running the CLI. One binary keeps `npx agent-working-notes` and pinned installs unambiguous.
+- Ship one binary, `working-notes`. The package name (`agent-working-notes`) and the binary name differ by design; one binary keeps the install surface unambiguous across `npx`, global installs and pinned versions.
 - Post-publish verification now retries for up to three minutes. npm accepts a publish before the registry document lists the new version, which made the 1.2.1 workflow fail after a successful publish.
 
 ## [1.2.1] - 2026-10-28
