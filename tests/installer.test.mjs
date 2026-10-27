@@ -27,14 +27,20 @@ function run(args, options = {}) {
 
 function tempDir(t) {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'working-notes-test-'));
-  t.after(() => fs.rmSync(dir, { recursive: true, force: true }));
+  t.after(() => {
+    try {
+      fs.rmSync(dir, { recursive: true, force: true });
+    } catch {
+      // Windows can hold a handle briefly; the OS cleans the temp directory.
+    }
+  });
   return dir;
 }
 
 test('installs the skill and its templates', (t) => {
   const dir = tempDir(t);
   const result = run(['install', '--dir', dir, '--json']);
-  assert.equal(result.status, 0, result.stderr);
+  assert.equal(result.status, 0, `${result.stderr}\n${result.stdout}`);
 
   const skill = path.join(dir, 'working-notes');
   assert.ok(fs.existsSync(path.join(skill, 'SKILL.md')), 'SKILL.md must exist');
@@ -112,6 +118,17 @@ test('harnesses that share a directory are installed once', (t) => {
   assert.equal(result.json.results.length, 1);
   assert.deepEqual(result.json.results[0].harnesses.sort(), ['codex', 'deepseek', 'opencode']);
   assert.ok(fs.existsSync(path.join(project, '.agents', 'skills', 'working-notes', 'SKILL.md')));
+});
+
+test('separate installs into a shared directory accumulate harnesses', (t) => {
+  const project = tempDir(t);
+  assert.equal(run(['install', '--agent', 'codex', '--scope', 'project', '--cwd', project, '--json']).status, 0);
+  assert.equal(run(['install', '--agent', 'deepseek', '--scope', 'project', '--cwd', project, '--json']).status, 0);
+
+  const manifest = JSON.parse(
+    fs.readFileSync(path.join(project, '.agents', 'skills', 'working-notes', '.working-notes.json'), 'utf8'),
+  );
+  assert.deepEqual(manifest.harnesses.sort(), ['codex', 'deepseek']);
 });
 
 test('unknown harness names fail with a useful message', () => {

@@ -298,6 +298,24 @@ function readManifest(dir) {
   }
 }
 
+const TRANSIENT = new Set(['EPERM', 'EBUSY', 'EACCES', 'ENOTEMPTY']);
+
+/** Windows file scanners briefly hold handles on newly written directories. */
+function retrySync(fn, attempts = 12, baseDelay = 25) {
+  let last;
+  for (let attempt = 0; attempt < attempts; attempt += 1) {
+    try {
+      return fn();
+    } catch (error) {
+      last = error;
+      if (!TRANSIENT.has(error.code)) throw error;
+      const ms = baseDelay * (attempt + 1);
+      Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
+    }
+  }
+  throw last;
+}
+
 function fileHashes(srcDir) {
   const out = {};
   const walk = (rel) => {
@@ -357,8 +375,8 @@ function copySkill(destDir) {
         harnesses: [],
       }, null, 2)}\n`,
     );
-    if (fs.existsSync(target)) fs.rmSync(target, { recursive: true, force: true });
-    fs.renameSync(tmp, target);
+    if (fs.existsSync(target)) retrySync(() => fs.rmSync(target, { recursive: true, force: true }));
+    retrySync(() => fs.renameSync(tmp, target));
   } catch (error) {
     cleanup();
     throw error;
@@ -390,7 +408,7 @@ function install(opts) {
         copySkill(t.dir);
         const manifest = readManifest(dest);
         if (manifest) {
-          manifest.harnesses = t.harnesses;
+          manifest.harnesses = [...new Set([...(existing?.harnesses || []), ...t.harnesses])];
           manifest.version = PKG.version;
           fs.writeFileSync(path.join(dest, MANIFEST), `${JSON.stringify(manifest, null, 2)}\n`);
         }
@@ -459,7 +477,7 @@ function uninstall(opts) {
       results.push({ status: 'refused', ...t, dest, reason: 'not installed by working-notes (use --force)' });
       continue;
     }
-    if (!opts.dryRun) fs.rmSync(dest, { recursive: true, force: true });
+    if (!opts.dryRun) retrySync(() => fs.rmSync(dest, { recursive: true, force: true }));
     results.push({ status: 'removed', ...t, dest });
   }
   if (opts.json) process.stdout.write(`${JSON.stringify({ results }, null, 2)}\n`);
